@@ -65,12 +65,12 @@ class GwtWidgetBuilders(obs: Observing) extends WidgetBuilders {
       def build(template: Template) = {
 
         def bindToText(textBox: TextBox) {
-          val realText = Var("")
-          text <--> realText
-          realText.foreach(textBox.setText)
+          text.foreach(t => if (t != textBox.getText) textBox.setText(t))
           textBox.addKeyUpHandler(new KeyUpHandler {
             def onKeyUp(event: KeyUpEvent) {
-              realText() = textBox.getText
+              val t = textBox.getText
+              if (t != text.now)
+                text() = t
             }
           })
         }
@@ -180,6 +180,7 @@ class GwtWidgetBuilders(obs: Observing) extends WidgetBuilders {
   def FlexTable[T](seqSignal: SeqSignal[T],
                    rendered: Signal[Boolean],
                    cellPadding: Signal[Int],
+                   css: Signal[String],
                    headerCss: Signal[String],
                    bind: String)
                   (columns: T=>List[FlexTableColumn]) = new WidgetBuilder {
@@ -194,6 +195,7 @@ class GwtWidgetBuilders(obs: Observing) extends WidgetBuilders {
       }
       
       def setupHeader(flex: FlexTable) {
+        startUpdatingCssClass(css, flex)
         try {
           startUpdatingCssClass[FlexTable](headerCss, flex,
                                            flex => flex.getRowFormatter.addStyleName(0, _),

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="reactive-gwt" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+  <!-- Arguments -style PRETTY or -logLevel DEBUG or -draftCompile or -ea to gwtc and devmode targets -->
+  <property name="gwt.args" value="-optimize 9" />
+  <property name="gwt.dev.args" value="-logLevel TRACE" />
+  <property name="scala.args" value="-g:notailcalls -Yjribble-text" />
+
+  <path id="scala.class.path">
+    <fileset dir="lib">
+      <include name="scala-compiler.jar" />
+      <include name="scala-library.jar" />
+    </fileset>
+  </path>
+
+  <path id="project.class.path">
+    <pathelement location="target/www/WEB-INF/classes" />
+    <pathelement location="lib/gwt-user.jar" />
+    <pathelement location="lib/gwt-dev.jar" />
+    <pathelement location="lib/gwt-servlet.jar" />
+    <pathelement location="lib/gwt-servlet-deps.jar" />
+    <pathelement location="lib/validation-api.jar" />
+    <pathelement location="lib/scala-library-gwt.jar" />
+    <pathelement location="lib/gwtquery.jar" />
+    <pathelement location="lib/core.jar" /><!--reactive-core gwt-->
+    <!-- TODO: Create SBT build when Scala+GWT is released -->
+  </path>
+
+  <target name="gwtc" depends="scalac" description="GWT compile to JavaScript">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="target/www/WEB-INF/classes" />
+        <path refid="project.class.path" />
+        <pathelement location="src/main/scala" />
+		<pathelement location="../../contour-client/src/main/scala"/>
+		<pathelement location="../../contour-common/src/main/scala"/>
+      </classpath>
+      <jvmarg value="-Xmx512M" />
+      <jvmarg value="-Dx.gwt.astBuilder=true" />
+      <arg line="${gwt.args}" />
+      <arg value="-war" />
+      <arg value="target/www" />
+      <arg value="org.contourweb.examples.Stockwatcher2"/>
+    </java>
+  </target>
+
+  <taskdef name="scalac" classname="scala.tools.ant.Scalac" classpathref="scala.class.path" />
+
+  <target name="scalac" description="Scalac compile to jribble">
+    <mkdir dir="target/www/WEB-INF/classes" />
+    <scalac destdir="target/www/WEB-INF/classes" target="jribble" addparams="${scala.args}">
+      <src>
+        <pathelement location="src/main/scala" />
+		<pathelement location="../../contour-client/src/main/scala"/>
+		<pathelement location="../../contour-common/src/main/scala"/>
+      </src>
+      <include name="**/*.scala" />
+      <include name="**/*.java" />
+      <classpath refid="project.class.path" />
+    </scalac>
+    <javac srcdir="src/main/scala" destdir="target/www/WEB-INF/classes">
+      <classpath refid="project.class.path" />
+    </javac>
+  </target>
+
+  <target name="devmode" depends="scalac" description="Run development mode">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
+      <classpath>
+        <pathelement location="target/www/WEB-INF/classes" />
+        <path refid="project.class.path" />
+        <pathelement location="src/main/scala" />
+		<pathelement location="../../contour-client/src/main/scala"/>
+		<pathelement location="../../contour-common/src/main/scala"/>
+      </classpath>
+      <jvmarg value="-Xmx512M" />
+      <jvmarg value="-Dx.gwt.astBuilder=true" />
+      <arg value="-startupUrl" />
+      <arg value="stockwatcher2/StockWatcher.html" />
+      <arg line="${gwt.dev.args}" />
+      <arg value="-war" />
+      <arg value="target/www" />
+      <arg value="org.contourweb.examples.Stockwatcher2"/>
+    </java>
+  </target>
+
+  <target name="build" depends="gwtc" description="Build this project" />
+
+  <target name="war" depends="build" description="Create a war file">
+    <zip destfile="stockwatcher2.war" basedir="target/www" />
+  </target>
+
+  <target name="clean" description="Cleans this project">
+    <delete dir="target/www" failonerror="false" />
+    <delete dir="gwt-unitCache" failonerror="false" />
+    <delete dir="jribbleCache" failonerror="false" />
+    <delete file="stockwatcher2.war" />
+  </target>
+
+</project>

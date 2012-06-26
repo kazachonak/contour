@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='stockwatcher2'>
+  <inherits name='ScalaLibrary'/>
+  <inherits name='com.google.gwt.user.User'/>
+
+  <inherits name="Reactive" />
+  <inherits name="org.contourweb.Common" />
+  <inherits name="org.contourweb.Client" />
+
+  <source path='stockwatcher2'/>
+
+  <entry-point class='org.contourweb.examples.stockwatcher2.stockWatcher.StockWatcherWindow'/>
+</module>

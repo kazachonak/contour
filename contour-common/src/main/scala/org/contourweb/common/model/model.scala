@@ -106,8 +106,7 @@ trait model extends fields {
           case None =>
             changeStream = Some(new EventSource[V])
             changeStream.get
-          case Some(stream) =>
-            stream
+          case Some(stream) => stream
         }
 
         def signal = new Signal[V] {

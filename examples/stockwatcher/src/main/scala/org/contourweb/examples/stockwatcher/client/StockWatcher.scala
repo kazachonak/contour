@@ -1,25 +1,26 @@
 package org.contourweb.examples.stockwatcher.client
 
-import com.google.gwt.user.client.ui.TextBox
-import com.google.gwt.user.client.ui.HorizontalPanel
-import com.google.gwt.user.client.ui.FlexTable
-import com.google.gwt.core.client.EntryPoint
-import com.google.gwt.user.client.ui.VerticalPanel
-import com.google.gwt.user.client.ui.Button
-import com.google.gwt.user.client.ui.Label
-import com.google.gwt.i18n.client.NumberFormat
-import com.google.gwt.event.dom.client.ClickHandler
-import com.google.gwt.event.dom.client.ClickEvent
-import com.google.gwt.user.client.ui.RootPanel
-import scala.collection.mutable
-import com.google.gwt.user.client.Random
-import com.google.gwt.event.dom.client.KeyPressHandler
-import com.google.gwt.event.dom.client.KeyPressEvent
-import com.google.gwt.user.client.Window
-import com.google.gwt.i18n.client.DateTimeFormat
 import java.util.Date
+
+import scala.collection.mutable
+import com.google.gwt.core.client.EntryPoint
+import com.google.gwt.event.dom.client.ClickEvent
+import com.google.gwt.event.dom.client.ClickHandler
 import com.google.gwt.event.dom.client.KeyCodes
+import com.google.gwt.event.dom.client.KeyPressEvent
+import com.google.gwt.event.dom.client.KeyPressHandler
+import com.google.gwt.i18n.client.DateTimeFormat
+import com.google.gwt.i18n.client.NumberFormat
+import com.google.gwt.user.client.Random
 import com.google.gwt.user.client.Timer
+import com.google.gwt.user.client.Window
+import com.google.gwt.user.client.ui.Button
+import com.google.gwt.user.client.ui.FlexTable
+import com.google.gwt.user.client.ui.HorizontalPanel
+import com.google.gwt.user.client.ui.Label
+import com.google.gwt.user.client.ui.RootPanel
+import com.google.gwt.user.client.ui.TextBox
+import com.google.gwt.user.client.ui.VerticalPanel
 
 
 case class StockPrice(symbol: String, price: Double, change: Double) {

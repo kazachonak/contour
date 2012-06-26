@@ -47,6 +47,7 @@ trait WidgetBuilders {
   def FlexTable[T](seqSignal: SeqSignal[T],
                    rendered: Signal[Boolean] = Val(true),
                    cellPadding: Signal[Int] = Val(0),
+                   css: Signal[String] = Val(""),
                    headerCss: Signal[String] = Val(""),
                    bind: String = "")
                   (columns: T=>List[FlexTableColumn])

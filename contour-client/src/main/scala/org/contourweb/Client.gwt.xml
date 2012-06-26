@@ -5,6 +5,7 @@
 
   <inherits name="org.contourweb.Common" />
   <inherits name="Reactive" />
+  <inherits name='com.google.gwt.query.Query'/>
   
   <source path='client'/>
 </module>
