@@ -1,0 +1,1 @@
+This project uses unreleased versions of Scala and Google Web Toolkit. The quickest way to setup a working build was Ant. So to build it you need to run 'ant' inside 'lib', and then run 'ant' just here. You can also run "ant devmode" just here to run the project in GWT development mode.

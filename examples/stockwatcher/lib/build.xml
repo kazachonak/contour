@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="contour-dependencies" default="download" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<target name="download" description="Download dependencies with Ivy">
+		<ivy:retrieve pattern="[artifact].[ext]" />
+	</target>
+
+</project>
