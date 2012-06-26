@@ -146,8 +146,8 @@ trait model extends fields {
     }
 
     
-    def name = name_
-    private var name_ : String = _
+    def name = name0
+    private var name0: String = "" // TODO: Init name
     
     protected var prototype: M = _
 
