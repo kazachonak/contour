@@ -5,3 +5,6 @@ gwt-unitCache/
 
 # Scala-IDE specific
 .scala_dependencies
+.settings/
+.classpath
+.project
