@@ -44,10 +44,10 @@ class StockWatcher extends EntryPoint {
    */
   def onModuleLoad {
     // Create table for stock data.
-    stocksFlexTable.setText(0, 0, "Symbol");
-    stocksFlexTable.setText(0, 1, "Price");
-    stocksFlexTable.setText(0, 2, "Change");
-    stocksFlexTable.setText(0, 3, "Remove");
+    stocksFlexTable.setText(0, 0, "Symbol")
+    stocksFlexTable.setText(0, 1, "Price")
+    stocksFlexTable.setText(0, 2, "Change")
+    stocksFlexTable.setText(0, 3, "Remove")
     
     // Add styles to elements in the stock list table.
     stocksFlexTable.setCellPadding(6)
@@ -58,20 +58,20 @@ class StockWatcher extends EntryPoint {
     stocksFlexTable.getCellFormatter.addStyleName(0, 3, "watchListRemoveColumn")
     
     // Assemble Add Stock panel.
-    addPanel.add(newSymbolTextBox);
-    addPanel.add(addStockButton);
+    addPanel.add(newSymbolTextBox)
+    addPanel.add(addStockButton)
     addPanel.addStyleName("addPanel")
 
     // Assemble Main panel.
-    mainPanel.add(stocksFlexTable);
-    mainPanel.add(addPanel);
-    mainPanel.add(lastUpdatedLabel);
+    mainPanel.add(stocksFlexTable)
+    mainPanel.add(addPanel)
+    mainPanel.add(lastUpdatedLabel)
     
     // Associate the Main panel with the HTML host page.
-    RootPanel.get("stockList").add(mainPanel);
+    RootPanel.get("stockList").add(mainPanel)
 
     // Move cursor focus to the input box.
-    newSymbolTextBox.setFocus(true);
+    newSymbolTextBox.setFocus(true)
 
     // Listen for mouse events on the Add button.
     addStockButton.addClickHandler(new ClickHandler {
@@ -136,9 +136,9 @@ class StockWatcher extends EntryPoint {
         stocksFlexTable.removeRow(removedIndex + 1)
       }
     })
-    removeStockButton.addStyleDependentName("remove");
+    removeStockButton.addStyleDependentName("remove")
     
-    stocksFlexTable.setWidget(row, 3, removeStockButton);
+    stocksFlexTable.setWidget(row, 3, removeStockButton)
 
     refreshWatchList
   }
@@ -146,9 +146,9 @@ class StockWatcher extends EntryPoint {
   /**
    * Generate random stock prices.
    */
-  def refreshWatchList {
-    val MAX_PRICE = 100.0; // $100.00
-    val MAX_PRICE_CHANGE = 0.02; // +/- 2%
+  private def refreshWatchList {
+    val MAX_PRICE = 100.0 // $100.00
+    val MAX_PRICE_CHANGE = 0.02 // +/- 2%
   
     val prices = stocks.map{ stock =>
       val price = Random.nextDouble * MAX_PRICE
@@ -164,7 +164,7 @@ class StockWatcher extends EntryPoint {
    *
    * @param prices Stock data for all rows.
    */
-  def updateTable(prices: Array[StockPrice]) {
+  private def updateTable(prices: Array[StockPrice]) {
     prices.foreach(updateTable)
     
     // Display timestamp showing last refresh.
@@ -177,7 +177,7 @@ class StockWatcher extends EntryPoint {
    *
    * @param price Stock data for a single row.
    */
-  def updateTable(price: StockPrice) {
+  private def updateTable(price: StockPrice) {
     // Make sure the stock is still in the stock table.
     if (!stocks.contains(price.symbol)) {
       return
@@ -188,11 +188,11 @@ class StockWatcher extends EntryPoint {
     // Format the data in the Price and Change fields.
     val priceText = NumberFormat.getFormat("#,##0.00").format(price.price)
     val changeFormat = NumberFormat.getFormat("+#,##0.00;-#,##0.00")
-    val changeText = changeFormat.format(price.change);
-    val changePercentText = changeFormat.format(price.changePercent);
+    val changeText = changeFormat.format(price.change)
+    val changePercentText = changeFormat.format(price.changePercent)
 
     // Populate the Price and Change fields with new data.
-    stocksFlexTable.setText(row, 1, priceText);
+    stocksFlexTable.setText(row, 1, priceText)
     val changeWidget = stocksFlexTable.getWidget(row, 2).asInstanceOf[Label]
     changeWidget.setText(changeText + " (" + changePercentText + "%)")
     
@@ -205,7 +205,7 @@ class StockWatcher extends EntryPoint {
       else
         "noChange"
 
-    changeWidget.setStyleName(changeStyleName);
+    changeWidget.setStyleName(changeStyleName)
   }
 
 }

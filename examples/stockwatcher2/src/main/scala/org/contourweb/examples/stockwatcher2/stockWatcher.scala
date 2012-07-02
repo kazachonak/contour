@@ -99,7 +99,7 @@ class StockWatcherView extends View {
   /**
    * Generate random stock prices.
    */
-  def refreshWatchList {
+  private def refreshWatchList {
     val MAX_PRICE = 100.0 // $100.00
     val MAX_PRICE_CHANGE = 0.02 // +/- 2%
 
